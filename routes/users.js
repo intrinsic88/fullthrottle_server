@@ -85,7 +85,6 @@ router.get('/:id', function(req, res, next) {
                 var ss = Math.floor(msec / 1000);
                 msec -= ss * 1000;
                 const act_time = hh + (mm / 60);
-                console.log(act_time);
 
                 let newData = tempdata.map((element) => {
                     if (element.x == start_time[0])
