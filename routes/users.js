@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var moment = require('moment')
 
 let user_data;
 
@@ -67,10 +68,10 @@ router.get('/:id', function(req, res, next) {
                 let end = element.end_time.split(" ");
                 let start_time = start[3].split(':');
                 let start_hm = gethoursMins(start_time);
-                let start_date = new Date(start[0] + ' ' + start[1] + ' ' + start[2] + ' ' + start_hm);
+                let start_date = moment(start[0] + ' ' + start[1] + ' ' + start[2] + ' ' + start_hm);
                 let end_time = end[3].split(':');
                 let end_hm = gethoursMins(end_time);
-                let end_date = new Date(end[0] + ' ' + end[1] + ' ' + end[2] + ' ' + end_hm);
+                let end_date = moment(end[0] + ' ' + end[1] + ' ' + end[2] + ' ' + end_hm);
 
                 if (end_date < start_date)
                     end_date.setDate(end_date.getDate() + 1)
