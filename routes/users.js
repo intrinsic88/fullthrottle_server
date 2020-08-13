@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var moment = require('moment')
+var moment = require('moment');
+const e = require('express');
 
 let user_data;
 
@@ -88,14 +89,18 @@ router.get('/:id', function(req, res, next) {
                 const act_time = hh + (mm / 60);
 
                 let newData = tempdata.map((element) => {
-                    if (element.x == start_time[0])
-                        element.y = act_time.toFixed(2)
-
-                    return element
+                    const start_time_check = start_time[1].includes('PM') ? 12 + parseInt(start_time[0]) : start_time[0];
+                    if (element.x == start_time_check)
+                        return {
+                            x: element.x,
+                            y: act_time.toFixed(2)
+                        }
+                    else
+                        return element
                 })
                 result.push({
-                    start_date: moment.utc(start[0] + '-' + start[1] + '-' + start[2]).format('YYYY-MM-DD'),
-                    end_date: moment.utc(end[0] + '-' + end[1] + '-' + end[2]).format('YYYY-MM-DD'),
+                    start_date: moment(start[0] + '-' + start[1] + '-' + start[2]).format('YYYY-MM-DD'),
+                    end_date: moment(end[0] + '-' + end[1] + '-' + end[2]).format('YYYY-MM-DD'),
                     data: newData,
                 });
             })
