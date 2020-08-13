@@ -94,8 +94,8 @@ router.get('/:id', function(req, res, next) {
                     return element
                 })
                 result.push({
-                    start_date: new Date(start[0] + ' ' + start[1] + ' ' + start[2]),
-                    end_date: new Date(end[0] + ' ' + end[1] + ' ' + end[2]),
+                    start_date: moment.utc(start[0] + '-' + start[1] + '-' + start[2]).format('YYYY-MM-DD'),
+                    end_date: moment.utc(end[0] + '-' + end[1] + '-' + end[2]).format('YYYY-MM-DD'),
                     data: newData,
                 });
             })
